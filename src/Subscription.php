@@ -17,6 +17,10 @@ class Subscription extends Model
 {
     protected $guarded = [];
 
+    protected $casts = [
+        'triggers' => 'array',
+    ];
+
     /**
      * @var string[]
      */
@@ -82,5 +86,20 @@ class Subscription extends Model
     public function scopeWithType(Builder $query, string $type)
     {
         return $query->where('subscribable_type', app($type)->getMorphClass());
+    }
+
+    public function hasTrigger($trigger)
+    {
+        if (count($this->triggers) <= 0) {
+            return false;
+        }
+
+        foreach($this->triggers as $inListTrigger) {
+            if ($inListTrigger == $trigger)  {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

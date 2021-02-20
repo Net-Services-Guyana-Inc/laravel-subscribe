@@ -15,6 +15,7 @@ class CreateSubscriptionsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger(config('subscribe.user_foreign_key'))->index()->comment('user_id');
             $table->morphs('subscribable');
+            $table->json('triggers')->comment('array of class');
             $table->timestamps();
         });
     }

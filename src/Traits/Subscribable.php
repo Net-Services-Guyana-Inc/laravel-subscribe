@@ -51,4 +51,18 @@ trait Subscribable
         )
             ->where('subscribable_type', $this->getMorphClass());
     }
+
+    public function addTrigger($trigger)
+    {
+        $allTriggers = $this->triggers;
+        $allTriggers[] = $trigger;
+
+        $this->triggers = array_unique($allTriggers);
+    }
+
+    public function getTriggers()
+    {
+        return $this->triggers;
+    }
+
 }

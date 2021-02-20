@@ -22,6 +22,7 @@ trait Subscriber
         if (!$this->hasSubscribed($object)) {
             $subscribe = app(config('subscribe.subscription_model'));
             $subscribe->{config('subscribe.user_foreign_key')} = $this->getKey();
+            $subscribe->triggers = $object->getTriggers();
 
             $object->subscriptions()->save($subscribe);
         }
